@@ -1,0 +1,44 @@
+require 'rails_helper'
+
+RSpec.describe GraphqlSchema do
+  before do
+    # reset vars and context
+    prepare_query_variables({})
+    prepare_context({})
+
+    # set query
+    prepare_query("
+      mutation logout{
+        logout
+      }
+    ")
+  end
+
+  let(:password) { SecureRandom.uuid }
+
+  describe 'logout' do
+    context 'when no user exists' do
+      it 'is false' do
+        expect(graphql!['data']['logout']).to be false
+      end
+    end
+
+    context 'when there\'s a matching user' do
+      before do
+        @current_user = create(:user, email: Faker::Internet.email, password: password, password_confirmation: password)
+        prepare_context({ current_user: @current_user })
+      end
+
+      let(:user) do
+        @current_user
+      end
+
+      it 'returns user object' do
+        jti_before = user.jti
+        graphql!
+        user.reload
+        expect(user.jti).not_to eq jti_before
+      end
+    end
+  end
+end

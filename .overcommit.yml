@@ -1,0 +1,72 @@
+# this ensures gems are packed using bundler,
+# but isolated from the general Gemgile
+gemfile: ".overgems.rb"
+
+PreCommit:
+  BerksfileCheck:
+    enabled: true
+
+  BundleCheck:
+    enabled: true
+
+  CoffeeLint:
+    enabled: true
+
+  CssLint:
+    enabled: true
+
+  EsLint:
+    enabled: false
+
+  HamlLint:
+    enabled: true
+
+  HardTabs:
+    enabled: true
+
+  ImageOptim:
+    enabled: false
+
+  JavaCheckstyle:
+    enabled: true
+
+  Jscs:
+    enabled: false
+
+  JsHint:
+    enabled: true
+
+  JsonSyntax:
+    enabled: true
+
+  LocalPathsInGemfile:
+    enabled: true
+
+  PryBinding:
+    enabled: true
+
+  RailsSchemaUpToDate:
+    enabled: true
+
+  RuboCop: &rubocop
+    enabled: true
+
+  Scalastyle:
+    enabled: true
+
+  ScssLint:
+    enabled: true
+  ShellCheck:
+    enabled: true
+
+  TrailingWhitespace:
+    enabled: true
+
+  TravisLint:
+    enabled: true
+
+  XmlLint:
+    enabled: true
+
+  YamlSyntax:
+    enabled: true

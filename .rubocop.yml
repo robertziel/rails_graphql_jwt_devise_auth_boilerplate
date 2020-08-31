@@ -1,0 +1,134 @@
+AllCops:
+  Exclude:
+    - bin/*
+    - config/**/*
+    - db/**/*
+    - log/**/*
+    - public/**/*
+    - storage/**/*
+    - tmp/**/*
+    - vendor/**/*
+
+Metrics/BlockLength:
+  Exclude:
+    - 'app/api/**/*_api.rb'
+    - 'db/migrate/**/*'
+    - 'config/**/*'
+    - 'spec/**/*.rb'
+Metrics/MethodLength:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/Lambda:
+  Enabled: false
+Style/MethodCalledOnDoEndBlock:
+  Enabled: true
+Style/NestedParenthesizedCalls:
+  Enabled: false
+Style/AccessorGrouping:
+  Enabled: true
+Style/ArrayCoercion:
+  Enabled: true
+Style/BisectedAttrAccessor:
+  Enabled: true
+Style/CaseLikeIf:
+  Enabled: true
+Style/ExplicitBlockArgument:
+  Enabled: true
+Style/ExponentialNotation:
+  Enabled: true
+Style/GlobalStdStream:
+  Enabled: true
+Style/HashAsLastArrayItem:
+  Enabled: true
+Style/HashEachMethods:
+  Enabled: true
+Style/HashLikeCase:
+  Enabled: true
+Style/HashTransformKeys:
+  Enabled: true
+Style/HashTransformValues:
+  Enabled: true
+Style/OptionalBooleanParameter:
+  Enabled: true
+Style/RedundantAssignment:
+  Enabled: true
+Style/RedundantFetchBlock:
+  Enabled: true
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+Style/RedundantRegexpEscape:
+  Enabled: true
+Style/SingleArgumentDig:
+  Enabled: true
+Style/SlicingWithRange:
+  Enabled: true
+Style/StringConcatenation:
+  Enabled: true
+Naming/PredicateName:
+  Enabled: false
+
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+Layout/ParameterAlignment:
+  Enabled: false
+Layout/HashAlignment:
+  Enabled: false
+Layout/AccessModifierIndentation:
+  Enabled: false
+Layout/CommentIndentation:
+  Enabled: false
+Layout/LineLength:
+  Max: 100
+  Exclude:
+    - 'spec/**/*.rb'
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: false
+Layout/EmptyLinesAroundClassBody:
+  Enabled: false
+Layout/DotPosition:
+  EnforcedStyle: trailing
+
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - "spec/**/*"
+Lint/BinaryOperatorWithIdenticalOperands:
+   Enabled: true
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+Lint/DuplicateElsifCondition:
+  Enabled: true
+Lint/DuplicateRescueException:
+  Enabled: true
+Lint/EmptyConditionalBody:
+  Enabled: true
+Lint/FloatComparison:
+  Enabled: true
+Lint/MissingSuper:
+  Enabled: true
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+Lint/OutOfRangeRegexpRef:
+  Enabled: true
+Lint/RaiseException:
+  Enabled: true
+Lint/SelfAssignment:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
+Lint/TopLevelReturnWithArgument:
+  Enabled: true
+Lint/UnreachableLoop:
+  Enabled: true
+
+Bundler/OrderedGems:
+  Enabled: false
