@@ -25,6 +25,5 @@ coverage
 /config/master.key
 
 .env
-.env.*
 
 dump.rdb

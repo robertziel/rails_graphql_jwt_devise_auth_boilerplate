@@ -5,7 +5,7 @@
 Clone env_sample to .env for local development.
 
 ```
-cp env_sample .env
+cp .env.example .env
 ```
 
 Install the bundle:
