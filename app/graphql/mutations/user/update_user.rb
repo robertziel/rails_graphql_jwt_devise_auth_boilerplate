@@ -4,32 +4,64 @@ module Mutations
 
       null true
       description 'Update user'
+      argument :email, String, required: false
+      argument :first_name, String, required: false
+      argument :last_name, String, required: false
       argument :password, String, required: false
       argument :passwordConfirmation, String, required: false
-      payload_type Types::UserType
+      field :success, Boolean, null: false
+      field :errors, [Types::ActiveModelError], null: false
 
-      def resolve(
-        password: current_user_password,
-        password_confirmation: current_user_password_confirmation
-      )
+      def resolve(email:, first_name:, last_name:, password:, password_confirmation:)
         user = context[:current_user]
         return nil unless user
 
-        user.update!(
+        user_params = {
+          email: email,
+          first_name: first_name,
+          last_name: last_name,
           password: password,
           password_confirmation: password_confirmation
-        )
-        user
+        }
+
+        if user_params[:password].blank?
+          user_params.except!(:password, :password_confirmation)
+        else
+          user_params[:password] = user_params[:password] || ''
+          user_params[:password_confirmation] = user_params[:password_confirmation] || ''
+        end
+
+        if user.update(user_params)
+          success_response
+        else
+          failed_response(user)
+        end
       end
 
       private
 
-      def current_user_password
-        context[:current_user] ? context[:current_user].password : ''
+      def success_response
+        {
+          success: true,
+          errors: []
+        }
       end
 
-      def current_user_password_confirmation
-        context[:current_user] ? context[:current_user].password_confirmation : ''
+      def failed_response(user)
+        {
+          success: false,
+          errors: errors(user)
+        }
+      end
+
+      def errors(user)
+        user.errors.messages.map do |key, messages|
+          path = [:attributes, key.to_s.camelize(:lower)]
+          {
+            path: path,
+            message: messages.join(', ')
+          }
+        end
       end
     end
   end
