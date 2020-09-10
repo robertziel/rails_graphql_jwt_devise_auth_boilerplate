@@ -1,7 +1,6 @@
 module Mutations
-  module User
-    class UpdateUser < GraphQL::Schema::Mutation
-
+  module Profile
+    class Update < GraphQL::Schema::Mutation
       null true
       description 'Update user'
       argument :email, String, required: false

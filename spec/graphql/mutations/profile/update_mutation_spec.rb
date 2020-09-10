@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Mutations::User::UpdateUser do
+describe Mutations::Profile::Update do
   let(:user_params) do
     {
       email: 'new@email.com',
@@ -14,8 +14,8 @@ RSpec.describe Mutations::User::UpdateUser do
 
   before do
     prepare_query('
-      mutation updateUser($email: String, $firstName: String, $lastName: String, $password: String, $passwordConfirmation: String){
-        updateUser(email: $email, firstName: $firstName, lastName: $lastName, password: $password, passwordConfirmation: $passwordConfirmation){
+      mutation profileUpdate($email: String, $firstName: String, $lastName: String, $password: String, $passwordConfirmation: String){
+        profileUpdate(email: $email, firstName: $firstName, lastName: $lastName, password: $password, passwordConfirmation: $passwordConfirmation){
           success errors { message path }
         }
       }
@@ -24,12 +24,12 @@ RSpec.describe Mutations::User::UpdateUser do
 
   subject do
     prepare_query_variables(user_params)
-    graphql!['data']['updateUser']
+    graphql!['data']['profileUpdate']
   end
 
   let(:password) { SecureRandom.uuid }
 
-  describe 'update' do
+  describe '#resolve' do
     context 'when no user exists' do
       before do
         prepare_context({})

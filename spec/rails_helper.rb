@@ -60,10 +60,10 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace('gem name')
 
   config.include FactoryBot::Syntax::Methods
-  config.include RequestSpecHelper, type: :request
   config.include GraphqlSpecHelper
   config.include Devise::Test::ControllerHelpers, type: :controller
-  config.extend DeviseHelper, type: :controller
+  config.include DeviseHelper, type: :controller
+  config.include RequestHelper, type: :controller
 end
 
 Shoulda::Matchers.configure do |config|

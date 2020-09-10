@@ -1,5 +1,5 @@
 module Mutations
-  module User
+  module Auth
     class SendResetPasswordInstructions < GraphQL::Schema::Mutation
       null true
       description 'Send password reset instructions to users email'

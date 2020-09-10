@@ -1,5 +1,5 @@
 module Mutations
-  module User
+  module Auth
     class ResetPassword < GraphQL::Schema::Mutation
       null true
       description 'Set the new password'

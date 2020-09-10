@@ -1,7 +1,6 @@
 module Mutations
-  module User
+  module Auth
     class Login < GraphQL::Schema::Mutation
-      null true
       description 'Login for users'
       argument :email, String, required: true
       argument :password, String, required: true

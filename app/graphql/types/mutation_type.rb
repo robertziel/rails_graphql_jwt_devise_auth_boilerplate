@@ -2,15 +2,15 @@ module Types
   class MutationType < Types::BaseObject
 
     # Authentication
-    field :login, mutation: Mutations::User::Login
-    field :token_login, mutation: Mutations::User::TokenLogin
-    field :update_user, mutation: Mutations::User::UpdateUser
-    field :sign_up, mutation: Mutations::User::SignUp
-    field :reset_password, mutation: Mutations::User::ResetPassword
-    field :send_reset_password_instructions,
-          mutation: Mutations::User::SendResetPasswordInstructions
-    field :unlock, mutation: Mutations::User::Unlock
-    field :resend_unlock_instructions, mutation: Mutations::User::ResendUnlockInstructions
+    field :auth_login, mutation: Mutations::Auth::Login
+    field :auth_sign_up, mutation: Mutations::Auth::SignUp
+    field :auth_reset_password, mutation: Mutations::Auth::ResetPassword
+    field :auth_send_reset_password_instructions,
+          mutation: Mutations::Auth::SendResetPasswordInstructions
+    field :auth_unlock, mutation: Mutations::Auth::Unlock
+    field :auth_resend_unlock_instructions, mutation: Mutations::Auth::ResendUnlockInstructions
 
+    # Profile
+    field :profile_update, mutation: Mutations::Profile::Update
   end
 end

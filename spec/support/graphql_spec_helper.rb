@@ -27,8 +27,4 @@ module GraphqlSpecHelper
       error['path'].join('_') == "attributes_#{attribute_camelized}"
     end
   end
-
-  def response_body
-    JSON.parse(response.body)
-  end
 end

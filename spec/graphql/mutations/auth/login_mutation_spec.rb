@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Mutations::User::Login do
+describe Mutations::Auth::Login do
   let(:query_variables) do
     {
       email: Faker::Internet.email,
@@ -9,25 +9,22 @@ RSpec.describe Mutations::User::Login do
   end
 
   before do
-    # reset vars and context
     prepare_context({})
-
-    # set query
-    prepare_query("
-      mutation login($email: String!, $password: String!){
-        login(email: $email, password: $password) {
+    prepare_query('
+      mutation authLogin($email: String!, $password: String!){
+        authLogin(email: $email, password: $password) {
           token
         }
       }
-    ")
+    ')
   end
 
   subject do
     prepare_query_variables(query_variables)
-    graphql!['data']['login']
+    graphql!['data']['authLogin']
   end
 
-  describe 'login' do
+  describe '#resolve' do
     context 'when no user matching email exists' do
       it 'returns nil token' do
         expect(subject['token']).to eq(nil)

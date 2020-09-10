@@ -1,26 +1,25 @@
 require 'rails_helper'
 
-RSpec.describe GraphqlSchema do
+describe Mutations::Auth::SignUp do
   before do
     # reset vars and context
-    prepare_query_variables({})
+    prepare_query_variables(query_variables)
     prepare_context({})
 
     # set query
     prepare_query("
-      mutation signUp($attributes: UserInput!){
-        signUp(attributes: $attributes) {
+      mutation authSignUp($attributes: UserInput!){
+        authSignUp(attributes: $attributes) {
           email
         }
       }
     ")
   end
 
-  describe 'signUp' do
+  describe '#resolve' do
     let(:user) { build(:user) }
-
-    before do
-      prepare_query_variables(
+    let(:query_variables) do
+      {
         attributes: {
           email: user.email,
           password: user.password,
@@ -28,12 +27,15 @@ RSpec.describe GraphqlSchema do
           firstName: user.first_name,
           lastName: user.last_name
         }
-      )
+      }
+    end
+
+    subject do
+      graphql!['data']['authSignUp']
     end
 
     it 'returns user object' do
-      user_email = graphql!['data']['signUp']['email']
-      expect(user_email).to eq(user.email)
+      expect(subject['email']).to eq(user.email)
     end
   end
 end

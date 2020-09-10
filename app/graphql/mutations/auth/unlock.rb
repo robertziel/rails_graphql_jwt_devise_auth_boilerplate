@@ -1,5 +1,5 @@
 module Mutations
-  module User
+  module Auth
     class Unlock < GraphQL::Schema::Mutation
       null false
       description 'Unlock the user account'

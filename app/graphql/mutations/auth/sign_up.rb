@@ -1,5 +1,5 @@
 module Mutations
-  module User
+  module Auth
     class SignUp < GraphQL::Schema::Mutation
       null true
       description 'Sign up for users'

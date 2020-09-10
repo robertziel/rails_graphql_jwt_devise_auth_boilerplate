@@ -1,5 +1,5 @@
 module Resolvers
-  class Me < GraphQL::Schema::Resolver
+  class Profile < GraphQL::Schema::Resolver
     type Types::UserType, null: true
     description 'Returns the current user'
 

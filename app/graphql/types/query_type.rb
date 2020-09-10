@@ -1,5 +1,5 @@
 module Types
   class QueryType < BaseObject
-    field :me, resolver: Resolvers::Me
+    field :profile, resolver: Resolvers::Profile
   end
 end
