@@ -5,16 +5,29 @@ module Mutations
       description 'Login for users'
       argument :email, String, required: true
       argument :password, String, required: true
-      payload_type Types::UserType
+      field :token, String, null: true
 
       def resolve(email:, password:)
-        user = ::User.find_for_authentication(email: email)
-        return nil unless user
+        @email = email
+        @password = password
 
-        is_valid_for_auth = user.valid_for_authentication? do
-          user.valid_password?(password)
+        {
+          token: valid_for_authentication? ? user.token : nil
+        }
+      end
+
+      private
+
+      def user
+        @user ||= ::User.find_for_authentication(email: @email)
+      end
+
+      def valid_for_authentication?
+        return false unless user
+
+        user.valid_for_authentication? do
+          user.valid_password?(@password)
         end
-        is_valid_for_auth ? user : nil
       end
     end
   end

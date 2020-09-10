@@ -1,46 +1,58 @@
 require 'rails_helper'
 
-RSpec.describe GraphqlSchema do
+RSpec.describe Mutations::User::Login do
+  let(:query_variables) do
+    {
+      email: Faker::Internet.email,
+      password: 'password'
+    }
+  end
+
   before do
     # reset vars and context
-    prepare_query_variables({})
     prepare_context({})
 
     # set query
     prepare_query("
       mutation login($email: String!, $password: String!){
         login(email: $email, password: $password) {
-          email
+          token
         }
       }
     ")
   end
 
-  let(:password) { SecureRandom.uuid }
+  subject do
+    prepare_query_variables(query_variables)
+    graphql!['data']['login']
+  end
 
   describe 'login' do
-    context 'when no user exists' do
-      before do
-        prepare_query_variables(
-          email: Faker::Internet.email,
-          password: password
-        )
-      end
-      it 'is nil' do
-        expect(graphql!['data']['login']).to eq(nil)
+    context 'when no user matching email exists' do
+      it 'returns nil token' do
+        expect(subject['token']).to eq(nil)
       end
     end
 
-    context 'when there\'s a matching user' do
-      let(:user) { create(:user, email: Faker::Internet.email, password: password, password_confirmation: password) }
-
-      before do
-        prepare_query_variables(email: user.email, password: password)
+    context 'when user exists' do
+      let!(:user) do
+        create(:user, query_variables.merge(password_confirmation: query_variables[:password]))
       end
 
-      it 'returns user object' do
-        user_email = graphql!['data']['login']['email']
-        expect(user_email).to eq(user.email)
+      context 'when user matches login credentials' do
+        it 'returns new token' do
+          expect(subject['token']).not_to eq nil
+        end
+      end
+
+      context 'when user does not match login credentials' do
+        before do
+          query_variables[:password] = 'wrong_password'
+        end
+
+        it 'returns nil token' do
+          expect(subject['token']).to eq(nil)
+        end
       end
     end
   end
