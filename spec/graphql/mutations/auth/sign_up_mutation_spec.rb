@@ -1,20 +1,17 @@
 require 'rails_helper'
 
 describe Mutations::Auth::SignUp do
-  before do
-    # reset vars and context
-    prepare_query_variables(query_variables)
-    prepare_context({})
-
-    # set query
-    prepare_query("
+  let(:query) do
+    '
       mutation authSignUp($attributes: UserInput!){
         authSignUp(attributes: $attributes) {
           email
         }
       }
-    ")
+    '
   end
+  let(:query_variables) { {} }
+  let(:query_context) { {} }
 
   describe '#resolve' do
     let(:user) { build(:user) }

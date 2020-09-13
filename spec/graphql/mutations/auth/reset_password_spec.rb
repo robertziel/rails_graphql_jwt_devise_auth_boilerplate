@@ -1,8 +1,13 @@
 require 'rails_helper'
 
 describe Mutations::Auth::ResetPassword do
-  let!(:user) { create(:user, reset_password_token: SecureRandom.uuid, reset_password_sent_at: Time.zone.now) }
-  let(:new_password) { 'new_password' }
+  let(:query) do
+    '
+      mutation authResetPassword($password: String!, $passwordConfirmation: String!, $resetPasswordToken: String!){
+        authResetPassword(password: $password, passwordConfirmation: $passwordConfirmation, resetPasswordToken: $resetPasswordToken)
+      }
+    '
+  end
   let(:query_variables) do
     {
       password: new_password,
@@ -10,18 +15,12 @@ describe Mutations::Auth::ResetPassword do
       reset_password_token: user.reset_password_token
     }
   end
+  let(:query_context) { {} }
 
-  before do
-    prepare_query('
-      mutation authResetPassword($password: String!, $passwordConfirmation: String!, $resetPasswordToken: String!){
-        authResetPassword(password: $password, passwordConfirmation: $passwordConfirmation, resetPasswordToken: $resetPasswordToken)
-      }
-    ')
-  end
+  let!(:user) { create(:user, reset_password_token: SecureRandom.uuid, reset_password_sent_at: Time.zone.now) }
+  let(:new_password) { 'new_password' }
 
   subject do
-    prepare_context({})
-    prepare_query_variables(query_variables)
     graphql!['data']['authResetPassword']
   end
 

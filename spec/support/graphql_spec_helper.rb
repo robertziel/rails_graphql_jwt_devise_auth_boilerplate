@@ -1,10 +1,18 @@
 module GraphqlSpecHelper
+  # run after let(:query), let(:query_variables), let(:query_context) is set
   def graphql!
+    prepare_request
     GraphqlSchema.execute(
       @query,
       context: @context,
       variables: @variables
     )
+  end
+
+  def prepare_request
+    prepare_query(query)
+    prepare_query_variables(query_variables)
+    prepare_context(query_context)
   end
 
   def prepare_query_variables(variables)

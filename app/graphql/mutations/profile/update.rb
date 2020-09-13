@@ -1,6 +1,8 @@
 module Mutations
   module Profile
     class Update < GraphQL::Schema::Mutation
+      include ::GraphqlAuthenticationConcerns
+
       null true
       description 'Update user'
       argument :email, String, required: false
@@ -12,9 +14,8 @@ module Mutations
       field :errors, [Types::ActiveModelError], null: false
 
       def resolve(email:, first_name:, last_name:, password:, password_confirmation:)
+        authenticate_user!
         user = context[:current_user]
-        return nil unless user
-
         user_params = {
           email: email,
           first_name: first_name,

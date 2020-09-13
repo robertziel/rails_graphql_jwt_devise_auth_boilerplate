@@ -17,3 +17,5 @@ GraphQL::Errors.configure(GraphqlSchema) do
   #   context.add_error(firstError)
   # end
 end
+
+GraphQL::Errors::AUTHENTICATION_ERROR = 'AUTHENTICATION_ERROR'

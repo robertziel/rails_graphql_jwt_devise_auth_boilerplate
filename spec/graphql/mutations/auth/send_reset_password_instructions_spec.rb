@@ -1,13 +1,15 @@
 require 'rails_helper'
 
 describe Mutations::Auth::SendResetPasswordInstructions do
-  before do
-    prepare_query("
+  let(:query) do
+    '
       mutation authSendResetPasswordInstructions($email: String!){
         authSendResetPasswordInstructions(email: $email)
       }
-    ")
+    '
   end
+  let(:query_variables) { { email: Faker::Internet.email } }
+  let(:query_context) { {} }
 
   describe '#resolve' do
     subject do
@@ -17,21 +19,14 @@ describe Mutations::Auth::SendResetPasswordInstructions do
     end
 
     context 'when no user exists' do
-      let(:query_variables) do
-        {
-          email: Faker::Internet.email
-        }
-      end
-
       it { expect(subject).to be true }
     end
 
     context 'when user exists' do
       let!(:user) { create(:user) }
-      let(:query_variables) do
-        {
-          email: user.email
-        }
+
+      before do
+        query_variables[:email] = user.email
       end
 
       it { expect(subject).to be true }

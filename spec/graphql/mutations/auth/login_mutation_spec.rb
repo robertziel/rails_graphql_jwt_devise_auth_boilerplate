@@ -1,26 +1,24 @@
 require 'rails_helper'
 
 describe Mutations::Auth::Login do
+  let(:query) do
+    '
+      mutation authLogin($email: String!, $password: String!){
+        authLogin(email: $email, password: $password) {
+          token
+        }
+      }
+    '
+  end
   let(:query_variables) do
     {
       email: Faker::Internet.email,
       password: 'password'
     }
   end
-
-  before do
-    prepare_context({})
-    prepare_query('
-      mutation authLogin($email: String!, $password: String!){
-        authLogin(email: $email, password: $password) {
-          token
-        }
-      }
-    ')
-  end
+  let(:query_context) { {} }
 
   subject do
-    prepare_query_variables(query_variables)
     graphql!['data']['authLogin']
   end
 
