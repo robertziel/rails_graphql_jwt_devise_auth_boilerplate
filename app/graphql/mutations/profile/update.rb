@@ -5,11 +5,11 @@ module Mutations
       include ::GraphqlAuthenticationConcerns
 
       description 'Update user'
-      argument :email, String, required: false
-      argument :first_name, String, required: false
-      argument :last_name, String, required: false
+      argument :email, String, required: true
+      argument :first_name, String, required: true
+      argument :last_name, String, required: true
       argument :password, String, required: false
-      argument :passwordConfirmation, String, required: false
+      argument :password_confirmation, String, required: false
       field :success, Boolean, null: false
       field :errors, [Types::ActiveModelError], null: false
 

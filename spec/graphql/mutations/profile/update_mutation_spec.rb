@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Mutations::Profile::Update do
   let(:query) do
     '
-      mutation profileUpdate($email: String, $firstName: String, $lastName: String, $password: String, $passwordConfirmation: String){
+      mutation profileUpdate($email: String!, $firstName: String!, $lastName: String!, $password: String, $passwordConfirmation: String){
         profileUpdate(email: $email, firstName: $firstName, lastName: $lastName, password: $password, passwordConfirmation: $passwordConfirmation){
           success errors { message path }
         }

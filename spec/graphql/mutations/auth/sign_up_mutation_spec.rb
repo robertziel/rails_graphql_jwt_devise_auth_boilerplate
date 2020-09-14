@@ -3,7 +3,7 @@ require 'rails_helper'
 describe Mutations::Auth::SignUp do
   let(:query) do
     '
-      mutation authSignUp($email: String, $firstName: String, $lastName: String, $password: String, $passwordConfirmation: String){
+      mutation authSignUp($email: String!, $firstName: String!, $lastName: String!, $password: String!, $passwordConfirmation: String!){
         authSignUp(email: $email, firstName: $firstName, lastName: $lastName, password: $password, passwordConfirmation: $passwordConfirmation){
           success errors { message path }
         }

@@ -3,12 +3,12 @@ module Mutations
     class SignUp < GraphQL::Schema::Mutation
       include ::GraphqlActiveModelConcerns
 
-      description 'Sign up for users'
-      argument :email, String, required: false
-      argument :first_name, String, required: false
-      argument :last_name, String, required: false
-      argument :password, String, required: false
-      argument :passwordConfirmation, String, required: false
+      description 'Sign up'
+      argument :email, String, required: true
+      argument :first_name, String, required: true
+      argument :last_name, String, required: true
+      argument :password, String, required: true
+      argument :password_confirmation, String, required: true
       field :success, Boolean, null: false
       field :errors, [Types::ActiveModelError], null: false
 
