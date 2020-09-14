@@ -1,9 +1,9 @@
 module Mutations
   module Profile
     class Update < GraphQL::Schema::Mutation
+      include ::GraphqlActiveModelConcerns
       include ::GraphqlAuthenticationConcerns
 
-      null true
       description 'Update user'
       argument :email, String, required: false
       argument :first_name, String, required: false
@@ -52,16 +52,6 @@ module Mutations
           success: false,
           errors: errors(user)
         }
-      end
-
-      def errors(user)
-        user.errors.messages.map do |key, messages|
-          path = [:attributes, key.to_s.camelize(:lower)]
-          {
-            path: path,
-            message: messages.join(', ')
-          }
-        end
       end
     end
   end

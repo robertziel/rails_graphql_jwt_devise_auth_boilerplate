@@ -30,6 +30,8 @@ module GraphqlSpecHelper
   end
 
   def has_attribute_error?(result, attribute)
+    return false if result.blank?
+
     result['errors'].any? do |error|
       attribute_camelized = attribute.to_s.camelize(:lower)
       error['path'].join('_') == "attributes_#{attribute_camelized}"

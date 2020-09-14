@@ -30,6 +30,10 @@ describe Mutations::Profile::Update do
   describe '#resolve' do
     include_examples :graphql_authenticate_user
 
+    it 'returns success true' do
+      expect(subject['success']).to be true
+    end
+
     it 'updates email' do
       subject
       expect(current_user.reload.email).to eq query_variables[:email]
@@ -57,6 +61,10 @@ describe Mutations::Profile::Update do
 
         it 'returns error' do
           expect(has_attribute_error?(subject, :password_confirmation)).to be true
+        end
+
+        it 'returns success false' do
+          expect(subject['success']).to be false
         end
       end
     end
